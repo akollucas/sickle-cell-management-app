@@ -1,17 +1,46 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
+  const { user } = useAuth();
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16 text-center">
-      <h1 className="text-4xl font-bold text-gray-900 mb-6">
-        Sickle Cell Care Companion
-      </h1>
-      <p className="text-xl text-gray-600 mb-8">
-        AI-powered monitoring and crisis prediction for children with Sickle Cell Disease.
-      </p>
-      <Link to="/register" className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium">
-        Get Started
-      </Link>
+    <div className="bg-white">
+      <div className="relative isolate px-6 pt-14 lg:px-8">
+        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              Sickle Cell Care Companion
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              AI-powered monitoring and support for children with sickle cell disease.
+              Track symptoms, manage medications, and predict crisis risks.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              {user ? (
+                <Link
+                  to="/dashboard"
+                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Go to Dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Get started
+                  </Link>
+                  <Link to="/register" className="text-sm font-semibold leading-6 text-gray-900">
+                    Create account <span aria-hidden="true">→</span>
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
